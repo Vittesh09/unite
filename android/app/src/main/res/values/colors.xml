@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Material 3 dark roles for Unite -->
+    <color name="colorPrimary">#000000</color>
+    <color name="colorPrimaryDark">#000000</color>
+    <color name="colorAccent">#CE1818</color>
+    <color name="md_sys_color_surface">#0A0A0C</color>
+    <color name="md_sys_color_on_surface">#F5F5F7</color>
+    <color name="md_sys_color_primary">#CE1818</color>
+</resources>

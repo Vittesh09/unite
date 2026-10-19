@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#000000">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <title>Unite</title>
+  <link rel="stylesheet" href="styles/tokens.css">
+  <link rel="stylesheet" href="styles/app.css">
+  <script>
+    window.addEventListener('error', function (event) {
+      var diag = document.getElementById('diag');
+      var status = document.getElementById('status');
+      var message = (event && event.message) || 'Script error';
+      if (diag) diag.textContent += message + '\n';
+      if (status) {
+        status.textContent = 'Something went wrong.';
+        status.classList.add('is-visible');
+      }
+    });
+  </script>
+  <script src="vendor/model-viewer/model-viewer-umd.min.js" defer></script>
+</head>
+<body>
+  <div id="splash" role="dialog" aria-label="Unite intro">
+    <video
+      id="splash-video"
+      src="assets/splash-stars.mp4"
+      muted
+      autoplay
+      playsinline
+      webkit-playsinline
+      preload="auto"
+      disablepictureinpicture
+    ></video>
+  </div>
+
+  <div id="app-shell">
+    <div id="screen-host">
+      <section id="screen-home" class="app-screen screen-home-flow">
+        <header class="flow-header">
+          <div>
+            <p class="flow-kicker">Unite</p>
+            <h1 class="flow-title">Tonight’s sky</h1>
+          </div>
+          <button id="open-settings" class="icon-btn ghost-icon" type="button" aria-label="Settings">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M12 3v2M12 19v2M3 12h2M19 12h2M5.6 5.6l1.4 1.4M17 17l1.4 1.4M5.6 18.4L7 17M17 7l1.4-1.4"/></svg>
+          </button>
+        </header>
+
+        <div class="moon-stage" id="moon-stage">
+          <model-viewer
+            id="moon-viewer"
+            src="assets/moon_small.glb"
+            alt="3D Moon"
+            interaction-prompt="none"
+            shadow-intensity="0"
+            exposure="1.05"
+            disable-tap
+            disable-zoom
+            disable-pan
+            loading="eager"
+          ></model-viewer>
+          <div id="moon-fallback" class="moon-fallback" hidden aria-hidden="true">🌕</div>
+        </div>
+
+        <div id="home-dashboard" class="home-flow"></div>
+      </section>
+
+      <section id="screen-events" class="app-screen" hidden>
+        <header class="flow-header">
+          <div>
+            <p class="flow-kicker">Unite</p>
+            <h1 class="flow-title">Events</h1>
+          </div>
+        </header>
+        <label class="search-field search-field-soft" for="event-search">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M16.5 16.5L21 21"/></svg>
+          <input id="event-search" type="search" placeholder="Search events, places…" enterkeyhint="search" autocomplete="off">
+        </label>
+        <div id="event-list" class="event-list" aria-live="polite"></div>
+      </section>
+    </div>
+  </div>
+
+  <nav id="tab-bar" class="tab-bar-soft liquid-glass" aria-label="Main">
+    <button class="tab-btn is-active" type="button" data-tab="home" aria-current="page">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 11.5L12 4l8 7.5V20a1 1 0 0 1-1 1h-5v-6H10v6H5a1 1 0 0 1-1-1v-8.5z"/></svg>
+      Home
+    </button>
+    <button class="tab-btn" type="button" data-tab="events" aria-current="false">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="6" width="16" height="14" rx="2"/><path d="M8 4v4M16 4v4M4 10h16"/></svg>
+      Events
+    </button>
+    <button class="tab-btn" type="button" data-tab="sky" aria-current="false">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M12 4v2M12 18v2M4 12h2M18 12h2"/><circle cx="12" cy="12" r="2.5"/></svg>
+      Astro Walk
+    </button>
+  </nav>
+
+  <section id="panel-settings" class="panel" hidden>
+    <div class="panel-scroll">
+      <div class="panel-nav">
+        <button id="settings-back" class="icon-btn" type="button" aria-label="Back">
+          <svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg>
+        </button>
+        <h2 class="panel-nav-title">Settings</h2>
+      </div>
+      <section class="home-card glass">
+        <p class="eyebrow">Observer location</p>
+        <label class="field"><span>Latitude °N</span><input id="lat" name="lat" inputmode="decimal" value="19.076"></label>
+        <label class="field"><span>Longitude °E</span><input id="lon" name="lon" inputmode="decimal" value="72.8777"></label>
+        <label class="field"><span>Manual time (empty = live)</span><input id="when" name="when" type="datetime-local"></label>
+        <button class="btn" type="button" id="settings-apply-location">Apply to sky &amp; home</button>
+      </section>
+      <section class="home-card glass">
+        <p class="eyebrow">About the sky engine</p>
+        <p class="lede">SkyEngine 1.3.2 © 2026 drakkB, MIT. Catalogue derived from d3-celestial © 2015 Olaf Frohn, BSD-3-Clause (XHIP / Hipparcos, J2000). Planet positions are approximate, about 1°.</p>
+        <a class="btn" href="../vendor/skyengine/NOTICE.md">Full notices</a>
+        <pre id="diag" aria-label="Diagnostics"></pre>
+      </section>
+    </div>
+  </section>
+
+  <section id="panel-detail" class="panel" hidden>
+    <div class="panel-scroll">
+      <div class="panel-nav">
+        <button id="detail-back" class="icon-btn" type="button" aria-label="Back">
+          <svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg>
+        </button>
+      </div>
+      <div id="detail-body"></div>
+    </div>
+  </section>
+
+  <section id="panel-book" class="panel" hidden>
+    <div class="panel-scroll">
+      <div class="panel-nav">
+        <button id="book-back" class="icon-btn" type="button" aria-label="Back">
+          <svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg>
+        </button>
+      </div>
+      <div id="book-body"></div>
+    </div>
+  </section>
+
+  <section id="panel-confirm" class="panel" hidden>
+    <div class="panel-scroll">
+      <div id="confirm-body"></div>
+    </div>
+  </section>
+
+  <div id="astro-mode">
+    <canvas id="sky" aria-label="Astro Walk sky map"></canvas>
+    <div id="reticle" hidden></div>
+    <div id="mini-compass" class="mini-compass" aria-label="Compass">
+      <div id="compass-rose" class="compass-rose">
+        <span class="compass-n">N</span>
+        <span class="compass-e">E</span>
+        <span class="compass-s">S</span>
+        <span class="compass-w">W</span>
+        <span class="compass-needle" aria-hidden="true"></span>
+      </div>
+      <span id="compass-deg">—°</span>
+    </div>
+    <p id="status" class="glass" aria-live="polite"></p>
+
+    <header id="top-bar" class="chrome">
+      <button id="menu-btn" class="icon-btn" type="button" aria-label="Back">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>
+      </button>
+      <div class="focus-block">
+        <h1 id="focus-title" class="sky-clock-title">--:--</h1>
+        <span id="fov-hud" class="fov-hud" aria-label="Field of view">
+          <svg class="fov-hud-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 8l5-4h8l5 4M3 16l5 4h8l5-4M8 12h8"/><circle cx="12" cy="12" r="2.2"/></svg>
+          <span id="fov-hud-text">—°</span>
+        </span>
+      </div>
+      <button id="search-open" class="icon-btn" type="button" aria-label="Search">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M16.5 16.5L21 21"/></svg>
+      </button>
+    </header>
+
+    <div id="astro-tools" class="chrome">
+      <button id="layers-open" class="icon-btn" type="button" aria-label="Layers">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4l8 4.5-8 4.5-8-4.5L12 4z"/><path d="M4 12.5l8 4.5 8-4.5"/><path d="M4 16l8 4.5 8-4.5"/></svg>
+      </button>
+      <button id="point" class="icon-btn" type="button" aria-label="Point phone">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="8" y="2.5" width="8" height="19" rx="1.6"/><circle cx="12" cy="18.2" r="0.9"/><path d="M12 6.5v5M10 9h4"/></svg>
+      </button>
+      <button id="object-open" class="icon-btn" type="button" aria-label="Object info" hidden>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 10v7M12 7h.01"/></svg>
+      </button>
+    </div>
+
+    <button id="now-fab" class="chrome now-fab" type="button" aria-label="Current time">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3.2 2"/></svg>
+    </button>
+    <button id="locate" class="chrome gps-fab" type="button" aria-label="My location" hidden>
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3.2"/><circle cx="12" cy="12" r="7"/><path d="M12 2.5v3.2M12 18.3v3.2M2.5 12h3.2M18.3 12h3.2"/></svg>
+    </button>
+
+    <div id="app-toast" class="app-toast" hidden role="status" aria-live="polite"></div>
+
+    <section id="search-sheet" class="sheet glass-strong" hidden>
+      <div class="sheet-head">
+        <h2>Search</h2>
+        <button id="search-close" class="icon-btn close-sheet" type="button" aria-label="Close search">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+        </button>
+      </div>
+      <form id="search-form">
+        <label for="search">Catalogue
+          <input id="search" name="search" type="search" autocomplete="off" enterkeyhint="search" placeholder="Sirius, Jupiter, Orion">
+        </label>
+      </form>
+      <div class="planets" id="planet-bar" aria-label="Planets"></div>
+      <ul id="results"></ul>
+      <p id="no-results" hidden>No matching catalogue objects.</p>
+    </section>
+
+    <section id="layers-sheet" class="sheet glass-strong" hidden>
+      <div class="sheet-head">
+        <h2>Sky controls</h2>
+        <button id="layers-close" class="icon-btn close-sheet" type="button" aria-label="Close">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+        </button>
+      </div>
+      <div class="sky-toggles" role="group" aria-label="Display">
+        <button id="toggle-lines" class="sky-toggle is-on" type="button" aria-pressed="true" aria-label="Constellation lines" title="Lines">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="5" cy="7" r="1.4"/><circle cx="12" cy="4" r="1.4"/><circle cx="19" cy="8" r="1.4"/><circle cx="9" cy="16" r="1.4"/><circle cx="17" cy="18" r="1.4"/><path d="M5 7l7-3 7 4M12 4L9 16M19 8l-2 10"/></svg>
+          <span>Lines</span>
+        </button>
+        <button id="toggle-milkyway" class="sky-toggle is-on" type="button" aria-pressed="true" aria-label="Milky Way" title="Milky Way">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 14c3-4 6-5 9-3s6 1 9-3"/><path d="M4 18c3-3 6-4 8-2s5 1 8-2"/><circle cx="7" cy="10" r="0.8"/><circle cx="12" cy="8" r="0.7"/><circle cx="16" cy="11" r="0.8"/></svg>
+          <span>Milky Way</span>
+        </button>
+        <button id="toggle-atmosphere" class="sky-toggle is-on" type="button" aria-pressed="true" aria-label="Atmosphere" title="Atmosphere">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 16c2-6 5-9 8-9s6 3 8 9"/><path d="M6 19h12"/><circle cx="17" cy="8" r="2.2"/></svg>
+          <span>Atmosphere</span>
+        </button>
+        <button id="horizon" class="sky-toggle" type="button" aria-pressed="false" aria-label="Landscape" title="Landscape">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 17l5-6 4 4 3-3 6 5"/><path d="M3 19h18"/><circle cx="17" cy="7" r="1.8"/></svg>
+          <span>Landscape</span>
+        </button>
+        <button id="toggle-grid" class="sky-toggle" type="button" aria-pressed="false" aria-label="Grid" title="Grid">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M4 12h16M12 4v16M6.5 7.5c3 2 8 2 11 0M6.5 16.5c3-2 8-2 11 0"/></svg>
+          <span>Grid</span>
+        </button>
+        <button id="toggle-dsos" class="sky-toggle is-on" type="button" aria-pressed="true" aria-label="Deep sky objects" title="DSOs">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><ellipse cx="12" cy="12" rx="7" ry="3.5" transform="rotate(-28 12 12)"/><ellipse cx="12" cy="12" rx="7" ry="3.5" transform="rotate(28 12 12)"/><circle cx="12" cy="12" r="1.4"/></svg>
+          <span>DSOs</span>
+        </button>
+        <button id="toggle-night" class="sky-toggle" type="button" aria-pressed="false" aria-label="Night mode" title="Night mode">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14.5 4.2A7.5 7.5 0 1 0 19.8 14 6.2 6.2 0 0 1 14.5 4.2z"/></svg>
+          <span>Night</span>
+        </button>
+      </div>
+      <div class="sheet-actions">
+        <button id="now" type="button" aria-label="Jump to now">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M12 8v4.5l3 1.5"/></svg>
+          <span>Now</span>
+        </button>
+        <button id="reset" type="button" aria-label="Reset view">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12a8 8 0 1 0 2.2-5.5"/><path d="M4 5v4h4"/></svg>
+          <span>Reset</span>
+        </button>
+      </div>
+    </section>
+
+    <section id="object" class="glass-strong object-sheet" hidden>
+      <div class="sheet-head">
+        <div class="object-title-row">
+          <img id="object-thumb" class="object-thumb" src="assets/celestial/images/star-default.svg" alt="" width="40" height="40" hidden>
+          <h2 id="object-title">Object</h2>
+        </div>
+        <button id="clear-selection" class="icon-btn close-sheet" type="button" aria-label="Close">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+        </button>
+      </div>
+      <p id="object-swipe-hint" class="object-swipe-hint" hidden>Swipe for more planets</p>
+      <div id="object-planet-deck" class="object-planet-deck" hidden aria-label="Solar system bodies"></div>
+      <div id="object-detail" class="object-detail">
+        <dl id="meta"></dl>
+        <p id="object-note" class="note" hidden></p>
+      </div>
+      <div id="object-pager" class="object-pager" hidden aria-hidden="true"></div>
+      <div id="object-know-handle" class="object-know-handle" role="button" tabindex="0" aria-label="Drag up for more">
+        <span class="object-know-handle-bar" aria-hidden="true"></span>
+        <span class="object-know-handle-label">Drag up for more</span>
+      </div>
+    </section>
+  </div>
+
+  <section id="panel-celestial" class="panel celestial-panel" hidden>
+    <div class="panel-scroll">
+      <div class="panel-nav">
+        <button id="celestial-back" class="icon-btn" type="button" aria-label="Back">
+          <svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg>
+        </button>
+        <h2 class="panel-nav-title">Know more</h2>
+      </div>
+      <div id="celestial-body"></div>
+    </div>
+  </section>
+
+  <script src="../vendor/skyengine/sky-data.js" onerror="window.__skyAssetError = 'sky-data.js failed to load'"></script>
+  <script src="../vendor/skyengine/sky-engine.js" onerror="window.__skyAssetError = 'sky-engine.js failed to load'"></script>
+  <script src="celestial.js"></script>
+  <script src="adapter.js"></script>
+  <script src="events.js"></script>
+  <script src="home.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

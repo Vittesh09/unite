@@ -1,0 +1,102 @@
+:root {
+  /* Unite brand + Material 3 / HIG dark roles */
+  --md-sys-color-primary: #ce1818;
+  --md-sys-color-on-primary: #ffffff;
+  --md-sys-color-primary-container: #5c1010;
+  --md-sys-color-on-primary-container: #ffdad6;
+  --md-sys-color-surface: #0a0a0c;
+  --md-sys-color-on-surface: #f5f5f7;
+  --md-sys-color-on-surface-variant: #abafb7;
+  --md-sys-color-outline: rgba(255, 255, 255, 0.28);
+  --md-sys-color-outline-variant: rgba(255, 255, 255, 0.14);
+  --md-sys-color-surface-container: rgba(28, 28, 32, 0.72);
+  --md-sys-color-surface-container-high: rgba(40, 40, 46, 0.78);
+  --md-sys-color-error: #ffb4ab;
+
+  --bg: #000000;
+  --fg: var(--md-sys-color-on-surface);
+  --muted: var(--md-sys-color-on-surface-variant);
+  --accent: var(--md-sys-color-primary);
+  --line: var(--md-sys-color-outline);
+  --danger: var(--md-sys-color-error);
+
+  /* Radius scale (Material + Apple-friendly) */
+  --radius-xs: 8px;
+  --radius-sm: 12px;
+  --radius-md: 16px;
+  --radius-lg: 22px;
+  --radius-xl: 28px;
+  --radius-full: 999px;
+
+  /* Glass morphism — translucent fill + blur layer, never overflow:hidden on the same node */
+  --glass-bg: rgba(16, 18, 26, 0.34);
+  --glass-bg-strong: rgba(10, 12, 18, 0.48);
+  --glass-border: rgba(255, 255, 255, 0.16);
+  --glass-highlight: rgba(255, 255, 255, 0.12);
+  --glass-blur: 28px;
+  --glass-saturate: 180%;
+  --shadow-glass:
+    0 14px 40px rgba(0, 0, 0, 0.36),
+    inset 0 1px 0 rgba(255, 255, 255, 0.22),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.05);
+
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+
+  --touch: 48px;
+  --tab-h: 64px;
+  --font: -apple-system, "SF Pro Text", "Segoe UI", Roboto, system-ui, sans-serif;
+
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-right: env(safe-area-inset-right, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --safe-left: env(safe-area-inset-left, 0px);
+}
+
+.glass,
+.glass-strong {
+  position: relative;
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--shadow-glass);
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
+  backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
+}
+
+.glass {
+  background:
+    linear-gradient(160deg, rgba(255, 255, 255, 0.14) 0%, rgba(255, 255, 255, 0.04) 42%, rgba(255, 255, 255, 0.02) 100%),
+    var(--glass-bg);
+  border-radius: var(--radius-md);
+}
+
+.glass-strong {
+  background:
+    linear-gradient(160deg, rgba(255, 255, 255, 0.16) 0%, rgba(255, 255, 255, 0.05) 40%, rgba(255, 255, 255, 0.03) 100%),
+    var(--glass-bg-strong);
+  border-radius: var(--radius-lg);
+  -webkit-backdrop-filter: blur(calc(var(--glass-blur) + 8px)) saturate(var(--glass-saturate));
+  backdrop-filter: blur(calc(var(--glass-blur) + 8px)) saturate(var(--glass-saturate));
+}
+
+.glass::before,
+.glass-strong::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background: linear-gradient(118deg, rgba(255, 255, 255, 0.22) 0%, rgba(255, 255, 255, 0.05) 22%, transparent 48%);
+  opacity: 0.55;
+}
+
+/* iOS Liquid Glass hook: native wrapper can add .liquid-glass */
+@supports (-webkit-touch-callout: none) {
+  .liquid-glass {
+    background: rgba(255, 255, 255, 0.07);
+  }
+}

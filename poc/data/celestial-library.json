@@ -1,0 +1,299 @@
+{
+  "version": 1,
+  "note": "Image/model library for Know more. Prefer models/*.glb when present; else images/*.svg. Replace placeholders with high-res art or 3D as assets arrive.",
+  "bodies": {
+    "sun": {
+      "id": "sun",
+      "name": "Sun",
+      "kind": "star",
+      "subtitle": "Our star",
+      "image": "assets/celestial/images/Sun.png",
+      "model": null,
+      "summary": "A G-type main-sequence star at the center of the Solar System. It holds 99.8% of the system’s mass and drives Earth’s climate and seasons.",
+      "facts": [
+        { "label": "Type", "value": "G2V yellow dwarf" },
+        { "label": "Diameter", "value": "1.39 million km" },
+        { "label": "Surface temp", "value": "~5,500 °C" },
+        { "label": "Age", "value": "~4.6 billion years" }
+      ]
+    },
+    "moon": {
+      "id": "moon",
+      "name": "Moon",
+      "kind": "moon",
+      "subtitle": "Earth’s companion",
+      "image": "assets/celestial/images/Moon.png",
+      "model": "assets/moon_small.glb",
+      "summary": "Earth’s only natural satellite. Its phases, tides, and occultations are among the most useful cues for night-sky planning.",
+      "facts": [
+        { "label": "Diameter", "value": "3,474 km" },
+        { "label": "Distance", "value": "~384,400 km" },
+        { "label": "Orbital period", "value": "27.3 days" },
+        { "label": "Synodic month", "value": "29.5 days" }
+      ]
+    },
+    "mercury": {
+      "id": "mercury",
+      "name": "Mercury",
+      "kind": "planet",
+      "subtitle": "Innermost planet",
+      "image": "assets/celestial/images/Mercury.png",
+      "model": null,
+      "summary": "The smallest planet and closest to the Sun. Extremes of day and night temperature make it a challenging telescopic target near twilight.",
+      "facts": [
+        { "label": "Type", "value": "Terrestrial" },
+        { "label": "Moons", "value": "0" },
+        { "label": "Orbital period", "value": "88 days" },
+        { "label": "Diameter", "value": "4,879 km" }
+      ]
+    },
+    "venus": {
+      "id": "venus",
+      "name": "Venus",
+      "kind": "planet",
+      "subtitle": "The morning / evening star",
+      "image": "assets/celestial/images/Venus.png",
+      "model": null,
+      "summary": "Earth’s twin in size, wrapped in a thick CO₂ atmosphere. Often the brightest planet; best seen as a crescent in a small telescope.",
+      "facts": [
+        { "label": "Type", "value": "Terrestrial" },
+        { "label": "Moons", "value": "0" },
+        { "label": "Orbital period", "value": "225 days" },
+        { "label": "Diameter", "value": "12,104 km" }
+      ]
+    },
+    "earth": {
+      "id": "earth",
+      "name": "Earth",
+      "kind": "planet",
+      "subtitle": "Our home world",
+      "image": "assets/celestial/images/earth.svg",
+      "model": null,
+      "summary": "The only known world with liquid oceans and life. From space it is a blue marble with swirling clouds and a thin, fragile atmosphere.",
+      "facts": [
+        { "label": "Type", "value": "Terrestrial" },
+        { "label": "Moons", "value": "1" },
+        { "label": "Orbital period", "value": "365.25 days" },
+        { "label": "Diameter", "value": "12,742 km" }
+      ]
+    },
+    "mars": {
+      "id": "mars",
+      "name": "Mars",
+      "kind": "planet",
+      "subtitle": "The Red Planet",
+      "image": "assets/celestial/images/Mars.png",
+      "model": null,
+      "summary": "A cold desert world with polar caps, giant volcanoes, and seasonal dust storms. Opposition nights are prime time for surface detail.",
+      "facts": [
+        { "label": "Type", "value": "Terrestrial" },
+        { "label": "Moons", "value": "2" },
+        { "label": "Orbital period", "value": "687 days" },
+        { "label": "Diameter", "value": "6,779 km" }
+      ]
+    },
+    "jupiter": {
+      "id": "jupiter",
+      "name": "Jupiter",
+      "kind": "planet",
+      "subtitle": "King of the planets",
+      "image": "assets/celestial/images/Jupiter.png",
+      "model": null,
+      "summary": "A gas giant with banded clouds and the Great Red Spot. Even binoculars reveal the four Galilean moons changing place night to night.",
+      "facts": [
+        { "label": "Type", "value": "Gas giant" },
+        { "label": "Moons", "value": "95+" },
+        { "label": "Orbital period", "value": "11.9 years" },
+        { "label": "Diameter", "value": "139,820 km" }
+      ]
+    },
+    "saturn": {
+      "id": "saturn",
+      "name": "Saturn",
+      "kind": "planet",
+      "subtitle": "The ringed world",
+      "image": "assets/celestial/images/Saturn.png",
+      "model": null,
+      "summary": "Famous for its icy ring system. A small telescope shows the rings and Titan; ring tilt changes over Saturn’s long year.",
+      "facts": [
+        { "label": "Type", "value": "Gas giant" },
+        { "label": "Moons", "value": "140+" },
+        { "label": "Orbital period", "value": "29.5 years" },
+        { "label": "Diameter", "value": "116,460 km" }
+      ]
+    },
+    "uranus": {
+      "id": "uranus",
+      "name": "Uranus",
+      "kind": "planet",
+      "subtitle": "The ice giant",
+      "image": "assets/celestial/images/Uranus.png",
+      "model": null,
+      "summary": "A pale cyan ice giant tipped on its side. Soft and featureless in small scopes; best hunted with a chart or app.",
+      "facts": [
+        { "label": "Type", "value": "Ice giant" },
+        { "label": "Moons", "value": "28" },
+        { "label": "Orbital period", "value": "84 years" },
+        { "label": "Diameter", "value": "50,724 km" }
+      ]
+    },
+    "neptune": {
+      "id": "neptune",
+      "name": "Neptune",
+      "kind": "planet",
+      "subtitle": "The blue planet",
+      "image": "assets/celestial/images/Neptune.png",
+      "model": null,
+      "summary": "The farthest major planet, deep blue from methane in its atmosphere. Tiny and challenging — a rewarding find for careful observers.",
+      "facts": [
+        { "label": "Type", "value": "Ice giant" },
+        { "label": "Moons", "value": "16" },
+        { "label": "Orbital period", "value": "165 years" },
+        { "label": "Diameter", "value": "49,244 km" }
+      ]
+    },
+    "sirius": {
+      "id": "sirius",
+      "name": "Sirius",
+      "kind": "star",
+      "subtitle": "Alpha Canis Majoris",
+      "image": "assets/celestial/images/star-sirius.svg",
+      "model": null,
+      "summary": "The brightest star in the night sky. A nearby binary with a white-dwarf companion (Sirius B).",
+      "facts": [
+        { "label": "Constellation", "value": "Canis Major" },
+        { "label": "Distance", "value": "8.6 ly" },
+        { "label": "Spectral type", "value": "A1V" },
+        { "label": "Magnitude", "value": "−1.46" }
+      ]
+    },
+    "vega": {
+      "id": "vega",
+      "name": "Vega",
+      "kind": "star",
+      "subtitle": "Alpha Lyrae",
+      "image": "assets/celestial/images/star-vega.svg",
+      "model": null,
+      "summary": "A brilliant summer landmark and one corner of the Summer Triangle. Once used as a zero-point for the magnitude scale.",
+      "facts": [
+        { "label": "Constellation", "value": "Lyra" },
+        { "label": "Distance", "value": "25 ly" },
+        { "label": "Spectral type", "value": "A0V" },
+        { "label": "Magnitude", "value": "0.03" }
+      ]
+    },
+    "betelgeuse": {
+      "id": "betelgeuse",
+      "name": "Betelgeuse",
+      "kind": "star",
+      "subtitle": "Alpha Orionis",
+      "image": "assets/celestial/images/star-betelgeuse.svg",
+      "model": null,
+      "summary": "A red supergiant marking Orion’s shoulder. Famous for variability and as a future supernova candidate.",
+      "facts": [
+        { "label": "Constellation", "value": "Orion" },
+        { "label": "Distance", "value": "~550 ly" },
+        { "label": "Spectral type", "value": "M1–M2 Ia" },
+        { "label": "Magnitude", "value": "~0.5 (var)" }
+      ]
+    },
+    "rigel": {
+      "id": "rigel",
+      "name": "Rigel",
+      "kind": "star",
+      "subtitle": "Beta Orionis",
+      "image": "assets/celestial/images/star-rigel.svg",
+      "model": null,
+      "summary": "A luminous blue-white star at Orion’s foot — one of the sky’s brightest beacons despite its great distance.",
+      "facts": [
+        { "label": "Constellation", "value": "Orion" },
+        { "label": "Distance", "value": "~860 ly" },
+        { "label": "Spectral type", "value": "B8 Ia" },
+        { "label": "Magnitude", "value": "0.13" }
+      ]
+    },
+    "andromeda": {
+      "id": "andromeda",
+      "name": "Andromeda",
+      "kind": "galaxy",
+      "subtitle": "M31 · nearest major galaxy",
+      "image": "assets/celestial/images/Andromeda.png",
+      "model": null,
+      "summary": "The Andromeda Galaxy is the nearest large spiral to the Milky Way and a naked-eye target under dark skies.",
+      "facts": [
+        { "label": "Catalogue", "value": "M31 / NGC 224" },
+        { "label": "Type", "value": "Spiral galaxy" },
+        { "label": "Distance", "value": "~2.5 million ly" }
+      ]
+    },
+    "sombrero": {
+      "id": "sombrero",
+      "name": "Sombrero",
+      "kind": "galaxy",
+      "subtitle": "M104",
+      "image": "assets/celestial/images/Sombrero.png",
+      "model": null,
+      "summary": "An edge-on spiral with a bright nucleus and a dark dust lane — the Sombrero Galaxy.",
+      "facts": [
+        { "label": "Catalogue", "value": "M104 / NGC 4594" },
+        { "label": "Type", "value": "Spiral galaxy" },
+        { "label": "Constellation", "value": "Virgo" }
+      ]
+    },
+    "triangulum": {
+      "id": "triangulum",
+      "name": "Triangulum",
+      "kind": "galaxy",
+      "subtitle": "M33",
+      "image": "assets/celestial/images/Triangulum.png",
+      "model": null,
+      "summary": "The Triangulum Galaxy is a face-on spiral in the Local Group, often spotted near Andromeda.",
+      "facts": [
+        { "label": "Catalogue", "value": "M33 / NGC 598" },
+        { "label": "Type", "value": "Spiral galaxy" },
+        { "label": "Distance", "value": "~2.7 million ly" }
+      ]
+    },
+    "pinwheel": {
+      "id": "pinwheel",
+      "name": "Pinwheel",
+      "kind": "galaxy",
+      "subtitle": "M101",
+      "image": "assets/celestial/images/Pinwheel.png",
+      "model": null,
+      "summary": "A grand-design face-on spiral in Ursa Major — a classic deep-sky photographic target.",
+      "facts": [
+        { "label": "Catalogue", "value": "M101 / NGC 5457" },
+        { "label": "Type", "value": "Spiral galaxy" },
+        { "label": "Constellation", "value": "Ursa Major" }
+      ]
+    }
+  },
+  "aliases": {
+    "soleil": "sun",
+    "lune": "moon",
+    "mercure": "mercury",
+    "vénus": "venus",
+    "venus": "venus",
+    "terre": "earth",
+    "mars": "mars",
+    "jupiter": "jupiter",
+    "saturne": "saturn",
+    "saturn": "saturn",
+    "uranus": "uranus",
+    "neptune": "neptune",
+    "sirius": "sirius",
+    "vega": "vega",
+    "betelgeuse": "betelgeuse",
+    "rigel": "rigel",
+    "andromeda": "andromeda",
+    "m31": "andromeda",
+    "ngc 224": "andromeda",
+    "sombrero": "sombrero",
+    "m104": "sombrero",
+    "triangulum": "triangulum",
+    "m33": "triangulum",
+    "pinwheel": "pinwheel",
+    "m101": "pinwheel"
+  }
+}

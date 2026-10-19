@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Unite</string>
+    <string name="title_activity_main">Unite</string>
+    <string name="package_name">com.unite.astronomy</string>
+    <string name="custom_url_scheme">com.unite.astronomy</string>
+    <string name="moon_widget_description">Moon phase for tonight</string>
+    <string name="moon_widget_placeholder_name">Moon</string>
+    <string name="moon_widget_placeholder_illum">—% lit</string>
+</resources>

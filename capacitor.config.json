@@ -1,0 +1,20 @@
+{
+  "appId": "com.unite.astronomy",
+  "appName": "Unite",
+  "webDir": "www",
+  "backgroundColor": "#000000",
+  "android": {
+    "allowMixedContent": false,
+    "captureInput": true,
+    "zoomEnabled": false,
+    "webContentsDebuggingEnabled": true
+  },
+  "ios": {
+    "contentInset": "automatic",
+    "scrollEnabled": false
+  },
+  "server": {
+    "androidScheme": "https",
+    "iosScheme": "https"
+  }
+}
